@@ -2,9 +2,10 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from starlette.middleware.base import BaseHTTPMiddleware
-from src.routers import entities
+
 from src.db.session import create_all_tables
 from src.middleware import logging
+from src.routers import entities
 
 
 @asynccontextmanager

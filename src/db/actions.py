@@ -1,7 +1,7 @@
 from datetime import datetime
+from uuid import UUID
 
 from sqlalchemy.orm import Session
-from uuid import UUID
 
 from src.db.errors import DBNotFoundError
 from src.db.models import DBEntity

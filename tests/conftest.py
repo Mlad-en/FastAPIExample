@@ -1,12 +1,12 @@
 from datetime import datetime
 
-from sqlalchemy import create_engine, StaticPool
-from sqlalchemy.orm import sessionmaker
 import pytest
 from fastapi.testclient import TestClient
+from sqlalchemy import StaticPool, create_engine
+from sqlalchemy.orm import sessionmaker
 
-from src.db.models import Base
 from main import app
+from src.db.models import Base
 from src.models.request import Entity
 
 

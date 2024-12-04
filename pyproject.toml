@@ -25,3 +25,21 @@ dev = [
     "pytest-xdist>=3.6.1",
     "ruff>=0.8.1",
 ]
+
+[tool.mypy]
+python_version = 3.12
+strict = true
+disable_error_code="import-untyped"
+follow_imports="silent"
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+lint.select = ["F", "W", "B", "C4", "Q", "I"]
+lint.ignore = ["B008"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
