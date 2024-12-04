@@ -1,4 +1,4 @@
-name: Zod Schema
+name: API TEST
 
 permissions:
   contents: write
