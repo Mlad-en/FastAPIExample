@@ -1,7 +1,6 @@
 services:
-
   db:
-    container_name: postgres
+    container_name: db
     image: postgres
     restart: always
     env_file:
@@ -9,8 +8,7 @@ services:
     ports:
       - "5432:5432"
     profiles:
-      - postgres
-
+      - db
   pg_admin:
     container_name: pg4_admin
     image: dpage/pgadmin4
@@ -21,7 +19,8 @@ services:
       - "5050:80"
     profiles:
       - db_admin
-
+    depends_on:
+      - db
   fastapi:
     container_name: fastapi
     build:
@@ -31,7 +30,6 @@ services:
     ports:
       - "5000:5000"
     depends_on:
-      db:
-        condition: service_started
+      - db
     profiles:
       - fast_api
