@@ -1,16 +1,18 @@
+import json
 from datetime import datetime
 
 import pytest
 from fastapi.testclient import TestClient
 from sqlalchemy import StaticPool, create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, Session
 
 from main import app
 from src.db.models import Base
+from src.db.session import get_db
 from src.models.request import Entity
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def db_url() -> str:
     return "sqlite:///:memory:"
 
@@ -37,9 +39,16 @@ def test_db(db_session):
     database.close()
 
 
-@pytest.fixture(scope="session")
-def test_api_client():
-    return TestClient(app)
+@pytest.fixture(scope="function")
+def test_api_client(db_session) -> TestClient:
+    def mock_conn():
+        database = db_session()
+        yield database
+        database.close()
+
+    client = TestClient(app)
+    app.dependency_overrides[get_db] = mock_conn
+    return client
 
 
 @pytest.fixture(scope="function")
@@ -50,3 +59,8 @@ def request_entity():
         name="TEST NAME",
     )
     return new_entity
+
+
+@pytest.fixture(scope="function")
+def request_entity_json(request_entity):
+    return json.loads(request_entity.model_dump_json())
