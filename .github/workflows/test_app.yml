@@ -31,4 +31,6 @@ jobs:
         run: uv sync --all-extras --dev
 
       - name: Run tests
+        env:
+          POSTGRES_DB:  ${{ secrets.POSTGRES_DB }}
         run: uv run pytest tests -n 4
