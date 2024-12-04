@@ -1,8 +1,9 @@
+import uuid
+
 import pytest
 
 from src.db import actions
 from src.db.errors import DBNotFoundError
-import uuid
 
 
 @pytest.mark.parametrize(

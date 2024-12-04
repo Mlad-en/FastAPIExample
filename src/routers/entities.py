@@ -32,7 +32,7 @@ def get_entity(uuid: UUID, db: Session = Depends(session.get_db)):
         db_entity = actions.get_db_entity(uuid, db)
         return response.Entity(**db_entity.__dict__)
     except DBNotFoundError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=404, detail=str(e)) from e
 
 
 @router.put("/{uuid}", response_model=response.Entity)
@@ -43,7 +43,7 @@ def update_entity(
         db_entity = actions.update_db_entity(uuid, update_values, db)
         return response.Entity(**db_entity.__dict__)
     except DBNotFoundError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=404, detail=str(e)) from e
 
 
 @router.delete("/{uuid}", response_model=response.Entity)
@@ -52,4 +52,4 @@ def delete_entity(uuid: UUID, db: Session = Depends(session.get_db)):
         db_entity = actions.delete_db_entity(uuid, db)
         return response.Entity(**db_entity.__dict__)
     except DBNotFoundError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=404, detail=str(e)) from e
