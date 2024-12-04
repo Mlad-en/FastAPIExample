@@ -15,7 +15,7 @@ def db_url() -> str:
     return "sqlite:///:memory:"
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def db_session(db_url: str):
     engine = create_engine(
         db_url,
