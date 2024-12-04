@@ -1,11 +1,12 @@
 [project]
 name = "fastapiexample"
 version = "0.1.0"
-description = "Add your description here"
+description = "Simple example crud project for entities"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "alembic>=1.14.0",
+    "confz>=2.0.1",
     "fastapi>=0.115.5",
     "psycopg2>=2.9.10",
     "pydantic>=2.10.2",
@@ -16,6 +17,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "httpx>=0.28.0",
     "mypy>=1.13.0",
     "pre-commit>=4.0.1",
     "pytest>=8.3.4",
